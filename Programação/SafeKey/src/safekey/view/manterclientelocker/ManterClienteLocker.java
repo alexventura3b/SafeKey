@@ -10,6 +10,7 @@ import safekey.controller.ControleClienteLocker;
 import safekey.model.bean.ClienteLocker;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -60,39 +61,39 @@ public class ManterClienteLocker {
 
     public static void listar() throws SQLException, ClassNotFoundException {
 
-        JOptionPane.showMessageDialog(null, "LISTAR CLIENTE VEICULO");
-        String placa = JOptionPane.showInputDialog("ENTRE COM A PLACA");
+        JOptionPane.showMessageDialog(null, "LISTAR CONTRATOS DE LOCKERS");
+        int num_contrato = Integer.parseInt(JOptionPane.showInputDialog("ENTRE COM O NUMERO DE CONTRATO"));
 
-        ClienteLocker clivei = new ClienteLocker(placa);
-        ControleClienteLocker contCV = new ControleClienteLocker();
-        List<ClienteLocker> listaCV = contCV.listar(clivei);
-        listaCV.forEach((ClienteLocker cliveiList) -> {
-            JOptionPane.showMessageDialog(null, cliveiList.toString());
-            JOptionPane.showMessageDialog(null, "CLIENTE = " + cliveiList.getCliente().getNome());
-            JOptionPane.showMessageDialog(null, "PLACA = " + cliveiList.getVeiculo().getPlaca());
+        ClienteLocker clilocker = new ClienteLocker(num_contrato);
+        ControleClienteLocker Contclilok = new ControleClienteLocker();
+        List<ClienteLocker> listaCL = Contclilok.listar(clilocker);
+        listaCL.forEach((ClienteLocker listaCL2) -> {
+            JOptionPane.showMessageDialog(null, listaCL2.toString());
+            JOptionPane.showMessageDialog(null, "LOCKER = " + listaCL2.getNum_contrato());
+            JOptionPane.showMessageDialog(null, "VEÍCULO = " + listaCL2.getVeiculo().getPlaca());
         });
     }
-
+//Parei aqui!!!
     public static void inserir() throws SQLException, ClassNotFoundException {
 
         int id_cliente = 0;
-        JOptionPane.showMessageDialog(null, "INSERIR CLIENTE VEICULO");
-        try {
-            id_cliente = Integer.parseInt(JOptionPane.showInputDialog("ENTRE COM O ID DO CLIENTE"));
-        } catch (NumberFormatException n) {
-            JOptionPane.showMessageDialog(null, "ID INVÁLIDO");
-            montarTela();
-        }
+        //teste ramdom para numero contrato
+        double x1=1,x2=1;
+        double f = Math.random()/Math.nextDown(10000);
+        int aleatorio = (int) (x1*(100 - f) + x2*f);
+         //modificar        
+        JOptionPane.showMessageDialog(null, "INSERIR CONTRATO LOCKER");
+        id_cliente = Integer.parseInt(JOptionPane.showInputDialog("ENTRE COM O CPF DO CLIENTE"));
         String placa = JOptionPane.showInputDialog("ENTRE COM A PLACA DO VEICULO");
-        String entrada = JOptionPane.showInputDialog("ENTRADA");
-        String saida = JOptionPane.showInputDialog("SAIDA");
+        int num_contrato=aleatorio;
+        
         if (!"".equals(placa)) {
-            ClienteLocker clivei = new ClienteLocker(0, id_cliente, placa, entrada, saida);
-            ControleClienteLocker contcv = new ControleClienteLocker();
-            clivei = contcv.inserir(clivei);
-            JOptionPane.showMessageDialog(null, "CLIENTE_VEICULO = " + clivei.toString());
+            ClienteLocker clilocker = new ClienteLocker(0,num_contrato, id_cliente, placa, id_compart, data, hora, obs, id_tarifa, pago, id_pagamento);
+            ControleClienteLocker contclilock = new ControleClienteLocker();
+            clilocker = contclilock.inserir(clilocker);
+            JOptionPane.showMessageDialog(null, "CONTRATO = " + clilocker.toString());
         } else {
-            JOptionPane.showMessageDialog(null, "ID DO CLIENTE OU PLACA SÃO OBRIGATÓRIOS! ", "DADOS INCORRETOS", 2);
+            JOptionPane.showMessageDialog(null, "CPF DO CLIENTE OU PLACA SÃO OBRIGATÓRIOS! ", "DADOS INCORRETOS", 2);
             montarTela();
         }
     }

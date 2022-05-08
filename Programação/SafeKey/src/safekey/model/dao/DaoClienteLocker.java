@@ -25,19 +25,23 @@ public class DaoClienteLocker {
     public DaoClienteLocker() throws SQLException, ClassNotFoundException {
         this.c = new ConexaoDB().getConnection();
     }
-/* --------------------------------CORREÇÃO------------------------------------------
     public ClienteLocker inserir(ClienteLocker clilocker) throws SQLException {
-        String sql = "insert into cliente_locker" + " (ticket,id_cliente, placa, entrada, saida)" + " values (?,?,?,?,?)";
+        String sql = "insert into cliente_locker" + " (idContrato,numContrato,idVeículo,idcompartimento,data, hora, obsContrato,idTarifa, statusContrato, idPagamento)" + " values (?,?,?,?,?,?,?,?,?,?)";
         //seta os valores
         try (//prepared statments para inserção
                  PreparedStatement stmt = c.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             //seta os valores
 
-            stmt.setInt(1, clilocker.getId_contrato());
-            stmt.setInt(2, clilocker.getId_cliente());
-            stmt.setString(3, clilocker.getId_veiculo());
-            stmt.setString(4, clilocker.getIni_estadia());
-            stmt.setString(5, clilocker.getFim_estadia());
+            //stmt.setInt(1, clilocker.getId_contrato());
+            stmt.setInt(1, clilocker.getNum_contrato());
+            stmt.setString(2, clilocker.getId_veiculo());
+            stmt.setInt(3, clilocker.getId_compartimento());
+            stmt.setString(4, clilocker.getDt_contrato());
+            stmt.setString(5, clilocker.getHora_contrato());
+            stmt.setString(6, clilocker.getObs_contrato());
+            stmt.setInt(7, clilocker.getId_tarifa());
+            stmt.setBoolean(8, clilocker.isStatus_contrato());
+            stmt.setInt(9, clilocker.getId_pagamento());
             //executa
             stmt.executeUpdate();
             ResultSet res = stmt.getGeneratedKeys();
@@ -103,7 +107,7 @@ public class DaoClienteLocker {
         c.close();
         return retorno;
     }
-*/
+
     public ClienteLocker alterar(ClienteLocker clilocker) throws SQLException {
         String sql = "UPDATE cliente_locker SET  idVeiculo=?, idCompartimento= ?, data=?, hora=?, obsContrato=?, idTarifa=?, statusContrato=?, idPagamento=? WHERE numContrato = ?";
         // seta os valores

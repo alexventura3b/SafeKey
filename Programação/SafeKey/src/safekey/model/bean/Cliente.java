@@ -26,6 +26,12 @@ public class Cliente {
         this.id_Contatos = id_Contatos;
         this.dt_cadastro = dt_cadastro;
     }
+
+    public Cliente(String nm_cliente, String cpf_cliente, String dt_cadastro) {
+        this.nm_cliente = nm_cliente;
+        this.cpf_cliente = cpf_cliente;
+        this.dt_cadastro = dt_cadastro;
+    }
     
     public Cliente(String cpf_cliente) {
         this.cpf_cliente = cpf_cliente;

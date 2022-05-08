@@ -9,6 +9,7 @@ import safekey.SafeKey;
 import safekey.controller.ControleCliente;
 import safekey.model.bean.Cliente;
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -64,8 +65,11 @@ public class ManterCliente {
         String cpf = JOptionPane.showInputDialog("ENTRE COM O CPF");
         String nome = JOptionPane.showInputDialog("ENTRE COM O NOME DO CLIENTE");
         String telefone = JOptionPane.showInputDialog("DIGITE O TELEFONE");
+        //Contruir o Cadastro de contato
+        int idcontato=0;
+        String data = String.valueOf(Calendar.DATE);
         if (!"".equals(cpf)) {
-            Cliente clie = new Cliente(0, cpf, nome, telefone);
+            Cliente clie = new Cliente(0,nome,cpf,idcontato,data);
             ControleCliente contC = new ControleCliente();
             clie = contC.inserir(clie);
             JOptionPane.showMessageDialog(null, "CLIENTE = " + clie.toString());
@@ -103,11 +107,10 @@ public class ManterCliente {
 
     public static void alterar() throws SQLException, ClassNotFoundException {
         JOptionPane.showMessageDialog(null, "ALTERAR CLIENTE");
-        int id = Integer.parseInt(JOptionPane.showInputDialog("ENTRE COM O ID"));
         String cpf = JOptionPane.showInputDialog("ENTRE COM O CPF");
         String nome = JOptionPane.showInputDialog("DIGITE O NOME DO CLIENTE");
-        String telefone = JOptionPane.showInputDialog("ENTRE COM O TELEFONE");
-        Cliente clie = new Cliente(id, cpf, nome, telefone);
+        String data= String.valueOf(Calendar.DATE);
+        Cliente clie = new Cliente(cpf,nome,data);
         ControleCliente contC = new ControleCliente();
         clie = contC.alterar(clie);
         JOptionPane.showMessageDialog(null, "CLIENTE = " + clie.toString());
@@ -116,8 +119,8 @@ public class ManterCliente {
 
     public static void excluir() throws SQLException, ClassNotFoundException {
         JOptionPane.showMessageDialog(null, "EXCLUIR CLIENTE");
-        int id = Integer.parseInt(JOptionPane.showInputDialog("ENTRE COM O ID DO CLIENTE"));
-        Cliente clie = new Cliente(id);
+        String cpf = JOptionPane.showInputDialog("ENTRE COM O CPF DO CLIENTE");
+        Cliente clie = new Cliente(cpf);
         ControleCliente contC = new ControleCliente();
         clie = contC.excluir(clie);
         JOptionPane.showMessageDialog(null, "CLIENTE = " + clie.toString());
